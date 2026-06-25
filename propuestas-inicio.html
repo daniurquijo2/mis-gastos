@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Propuestas pantalla de inicio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f3f4f6; --panel:#ffffff; --border:#d4d8df; --soft:#e6e8ec;
+    --text:#1b1e23; --muted:#697086; --accent:#2a2e35; --fig-iva:#9a7637;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:"Helvetica Neue",Arial,system-ui,sans-serif;background:var(--bg);color:var(--text);
+    font-size:15px;-webkit-font-smoothing:antialiased;padding:34px 28px 70px}
+  .wrap{max-width:1040px;margin:0 auto}
+  .pintro{margin:0 0 40px}
+  .pintro h1{font-family:"Playfair Display",serif;font-style:italic;font-weight:600;font-size:30px;margin:0 0 4px}
+  .pintro p{color:var(--muted);margin:0;font-size:14px}
+  .opt{margin-bottom:54px}
+  .opt-head{display:flex;align-items:baseline;gap:12px;margin-bottom:18px;border-bottom:1px solid var(--border);padding-bottom:10px}
+  .opt-num{font-family:"Playfair Display",serif;font-style:italic;font-size:22px;color:var(--fig-iva)}
+  .opt-name{font-size:15px;font-weight:700;letter-spacing:.02em}
+  .opt-desc{color:var(--muted);font-size:13px;margin-left:auto;text-align:right;max-width:46%}
+
+  /* hero total compartido */
+  .hero{margin-bottom:20px}
+  .hero .amt{display:flex;align-items:baseline;gap:18px}
+  .hero .t{font-family:"Playfair Display",serif;font-style:italic;font-weight:600;font-size:54px;line-height:.92;letter-spacing:-.012em}
+  .hero .i{font-family:"Playfair Display",serif;font-style:italic;font-weight:500;font-size:26px;color:var(--fig-iva)}
+  .hero .sub{color:var(--muted);font-size:12px;margin-top:8px}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));gap:16px}
+
+  /* ===== Propuesta 1 — Acento lateral ===== */
+  .c1{position:relative;background:var(--panel);border:1px solid var(--soft);padding:18px 18px 16px 22px;
+    cursor:pointer;transition:.15s;overflow:hidden}
+  .c1:hover{border-color:#c4c8d0;transform:translateY(-2px)}
+  .c1 .bar{position:absolute;left:0;top:0;bottom:0;width:4px}
+  .c1 .nm{font-size:15px;font-weight:600;letter-spacing:.01em}
+  .c1 .cnt{color:var(--muted);font-size:12px;margin-top:2px}
+  .c1 .num{font-family:"Playfair Display",serif;font-style:italic;font-weight:600;font-size:32px;margin-top:14px;line-height:1}
+  .c1 .iva{color:var(--fig-iva);font-size:13px;margin-top:6px;font-weight:600}
+
+  /* ===== Propuesta 2 — Libro de cuentas ===== */
+  .ledger{background:var(--panel);border:1px solid var(--soft)}
+  .lrow{display:flex;align-items:center;gap:14px;padding:16px 22px;border-bottom:1px solid var(--soft);cursor:pointer;transition:.12s}
+  .lrow:last-child{border-bottom:none}
+  .lrow:hover{background:#fafbfc}
+  .lrow .dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+  .lrow .nm{font-size:15px;font-weight:600}
+  .lrow .cnt{color:var(--muted);font-size:12.5px;margin-left:auto;padding-right:4px}
+  .lrow .right{text-align:right;min-width:120px}
+  .lrow .num{font-family:"Playfair Display",serif;font-style:italic;font-weight:600;font-size:26px;line-height:1}
+  .lrow .iva{color:var(--fig-iva);font-size:12px;margin-top:3px;font-weight:600}
+
+  /* ===== Propuesta 3 — Etiqueta minimal ===== */
+  .c3{background:var(--panel);border:1px solid var(--soft);padding:20px;cursor:pointer;transition:.15s}
+  .c3:hover{border-color:#c4c8d0;transform:translateY(-2px)}
+  .c3 .lbl{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:11px;font-weight:700;
+    text-transform:uppercase;letter-spacing:.13em}
+  .c3 .lbl .dot{width:8px;height:8px;border-radius:50%}
+  .c3 .num{font-family:"Playfair Display",serif;font-style:italic;font-weight:600;font-size:34px;margin-top:14px;line-height:1}
+  .c3 .foot{display:flex;justify-content:space-between;align-items:baseline;margin-top:10px;
+    border-top:1px solid var(--soft);padding-top:10px}
+  .c3 .iva{color:var(--fig-iva);font-size:13px;font-weight:600}
+  .c3 .cnt{color:var(--muted);font-size:12px}
+
+  .add{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;
+    border:1px dashed var(--border);color:var(--muted);font-weight:600;font-size:13px;cursor:pointer;min-height:118px}
+  .add .p{font-size:26px;line-height:1}
+  .add:hover{border-color:var(--accent);color:var(--accent)}
+  .note{margin-top:10px;color:var(--muted);font-size:12.5px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="pintro">
+    <h1>Pantalla de inicio — 3 propuestas</h1>
+    <p>El total se queda como está (te gustó). Cambia cómo se ven las carpetas: menos color de relleno, más cifra editorial.</p>
+  </div>
+
+  <!-- PROPUESTA 1 -->
+  <div class="opt">
+    <div class="opt-head">
+      <span class="opt-num">01</span><span class="opt-name">Acento lateral</span>
+      <span class="opt-desc">Tarjeta blanca y limpia; el color de la carpeta se reduce a una fina línea lateral. Cifra grande en Playfair.</span>
+    </div>
+    <div class="hero">
+      <div class="amt"><span class="t">341,40 €</span><span class="i">64,87 €</span></div>
+      <div class="sub">5 gastos en total</div>
+    </div>
+    <div class="grid" id="g1"></div>
+  </div>
+
+  <!-- PROPUESTA 2 -->
+  <div class="opt">
+    <div class="opt-head">
+      <span class="opt-num">02</span><span class="opt-name">Libro de cuentas</span>
+      <span class="opt-desc">Sin cajas: un listado tipo extracto bancario. Punto de color mínimo a la izquierda, cifras alineadas a la derecha. Lo más serio.</span>
+    </div>
+    <div class="hero">
+      <div class="amt"><span class="t">341,40 €</span><span class="i">64,87 €</span></div>
+      <div class="sub">5 gastos en total</div>
+    </div>
+    <div class="ledger" id="g2"></div>
+    <div class="note">+ Nueva carpeta iría como una fila discreta al final.</div>
+  </div>
+
+  <!-- PROPUESTA 3 -->
+  <div class="opt">
+    <div class="opt-head">
+      <span class="opt-num">03</span><span class="opt-name">Etiqueta minimal</span>
+      <span class="opt-desc">El nombre como etiqueta pequeña en mayúsculas con un punto de color; la cifra manda. Separador fino para el 19%.</span>
+    </div>
+    <div class="hero">
+      <div class="amt"><span class="t">341,40 €</span><span class="i">64,87 €</span></div>
+      <div class="sub">5 gastos en total</div>
+    </div>
+    <div class="grid" id="g3"></div>
+  </div>
+</div>
+
+<script>
+  const folders=[
+    {name:'Supermercado',color:'#4f8cff',cnt:1,total:84.30},
+    {name:'Restaurantes',color:'#ff7d4f',cnt:2,total:122.40},
+    {name:'Transporte',color:'#3ecf8e',cnt:1,total:60.50},
+    {name:'Suministros',color:'#b86bff',cnt:1,total:74.20},
+  ];
+  const IVA=0.19;
+  const fmt=n=>new Intl.NumberFormat('es-ES',{minimumFractionDigits:2,maximumFractionDigits:2}).format(n||0)+' €';
+  const cs=n=>n+' '+(n===1?'gasto':'gastos');
+
+  // P1
+  document.getElementById('g1').innerHTML=folders.map(f=>`
+    <div class="c1"><span class="bar" style="background:${f.color}"></span>
+      <div class="nm">${f.name}</div><div class="cnt">${cs(f.cnt)}</div>
+      <div class="num">${fmt(f.total)}</div>
+      <div class="iva">19% · ${fmt(f.total*IVA)}</div>
+    </div>`).join('')+
+    `<div class="c1 add" style="padding-left:18px"><div class="p">+</div><div>Nueva carpeta</div></div>`;
+
+  // P2
+  document.getElementById('g2').innerHTML=folders.map(f=>`
+    <div class="lrow"><span class="dot" style="background:${f.color}"></span>
+      <span class="nm">${f.name}</span><span class="cnt">${cs(f.cnt)}</span>
+      <span class="right"><div class="num">${fmt(f.total)}</div><div class="iva">19% · ${fmt(f.total*IVA)}</div></span>
+    </div>`).join('')+
+    `<div class="lrow" style="color:var(--muted);justify-content:center;font-weight:600"><span style="font-size:18px">+</span> Nueva carpeta</div>`;
+
+  // P3
+  document.getElementById('g3').innerHTML=folders.map(f=>`
+    <div class="c3">
+      <div class="lbl"><span class="dot" style="background:${f.color}"></span>${f.name}</div>
+      <div class="num">${fmt(f.total)}</div>
+      <div class="foot"><span class="cnt">${cs(f.cnt)}</span><span class="iva">19% · ${fmt(f.total*IVA)}</span></div>
+    </div>`).join('')+
+    `<div class="c3 add"><div class="p">+</div><div>Nueva carpeta</div></div>`;
+</script>
+</body>
+</html>
