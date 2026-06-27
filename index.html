@@ -364,6 +364,82 @@
   .needbadge,.exp .info .meta .t,.det-tags .t{ border-radius:999px !important; }
   .photo-drop,.det-img,.det-add{ border-radius:16px !important; }
   .manage-item,.sel-item,.filterbar{ border-radius:16px !important; }
+
+  /* ============ LENGUAJE RELAJADO (Apple / Google) ============ */
+  :root{ --soft-field:#f1f1ef; --hair:rgba(0,0,0,.06); }
+  html[data-theme="dark"]{ --soft-field:rgba(255,255,255,.06); --hair:rgba(255,255,255,.08); }
+
+  /* cabecera ligera, sin borde, que se funde con el fondo */
+  header.top{ background:var(--bg) !important; border-bottom:none !important; backdrop-filter:none !important; }
+  .menubtn{ background:var(--panel) !important; border:none !important; box-shadow:0 1px 3px rgba(0,0,0,.08) !important; }
+  .btn{ box-shadow:none !important; }
+
+  /* pestañas como control segmentado suave */
+  .tabs{ background:var(--soft-field) !important; border:none !important; padding:4px !important; gap:2px !important; }
+  .tab{ color:var(--muted) !important; font-weight:600; padding:9px 18px !important; }
+  .tab.active{ background:var(--panel) !important; color:var(--text) !important; border:none !important; box-shadow:0 1px 3px rgba(0,0,0,.12) !important; }
+  html[data-theme="dark"] .tab.active{ box-shadow:0 1px 3px rgba(0,0,0,.45) !important; }
+
+  /* tarjetas: tinte suave del color + punto (sin franja) */
+  .card-acc{ border:none !important; box-shadow:0 1px 2px rgba(0,0,0,.05) !important; padding:18px 18px 16px !important; }
+  .card-acc:hover{ box-shadow:0 10px 26px rgba(20,20,40,.09) !important; }
+  .card-acc .bar{ display:none !important; }
+  .card-acc .card-dot{ width:11px; height:11px; border-radius:50% !important; display:block; margin-bottom:11px; }
+  .addcard{ border:1.5px dashed var(--hair) !important; background:transparent !important; }
+
+  /* drawer translúcido + iconos en pastilla, sin divisorias */
+  .drawer{ background:color-mix(in srgb, var(--panel) 88%, transparent) !important; -webkit-backdrop-filter:blur(22px); backdrop-filter:blur(22px); border-right:none !important; box-shadow:0 14px 50px rgba(20,20,40,.18) !important; padding:10px !important; }
+  .drawer-head{ border-bottom:none !important; }
+  .ditem{ border:none !important; border-radius:16px !important; padding:11px 12px !important; margin:1px 3px; gap:14px; font-weight:550 !important; }
+  .ditem:hover{ background:var(--hair) !important; }
+  .ditem svg{ color:var(--muted); }
+  .dtile{ width:34px; height:34px; border-radius:11px !important; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .dtile svg{ color:inherit !important; }
+  .ditem .dchev{ margin-left:auto; color:var(--muted); opacity:.45; display:flex; }
+  .ditem .dchev svg{ color:inherit !important; }
+
+  /* modales: cabecera sin borde, título editorial, cierre circular */
+  .overlay{ background:rgba(18,18,28,.5) !important; }
+  .modal{ border:none !important; box-shadow:0 22px 64px rgba(20,20,40,.24) !important; }
+  .modal h2{ border-bottom:none !important; font-family:"Playfair Display",Georgia,serif; font-style:italic; font-weight:600; font-size:24px; padding:22px 24px 6px !important; }
+  .lrow .ldot,.exp .ldot{ border-radius:50% !important; }
+  .modal h2 .x{ width:32px; height:32px; border-radius:50% !important; background:var(--hair); display:flex; align-items:center; justify-content:center; font-size:16px; }
+  .modal .foot{ border-top:none !important; }
+
+  /* campos suaves (sin borde duro) */
+  .field input[type=text],.field input[type=number],.field input[type=date],.field input[type=email],.field input[type=password],.field select,.search{
+    background:var(--soft-field) !important; border:1px solid transparent !important; padding:12px 14px !important; }
+  .field input:focus,.field select:focus,.search:focus{ background:var(--panel) !important; border-color:color-mix(in srgb, var(--fig-iva) 55%, transparent) !important; }
+
+  /* listas de gastos agrupadas (tarjeta única con hairlines) */
+  .exp-list{ gap:0 !important; background:var(--panel); border-radius:18px; overflow:hidden; box-shadow:0 1px 2px rgba(0,0,0,.05); }
+  .exp{ background:transparent !important; border:none !important; border-radius:0 !important; padding:14px 16px !important; }
+  .exp + .exp{ border-top:1px solid var(--hair) !important; }
+  .exp .price .p{ font-family:"Playfair Display",Georgia,serif; font-style:italic; font-weight:600; font-size:19px; }
+
+  /* informes y segmentos */
+  .panel{ border:none !important; box-shadow:0 1px 2px rgba(0,0,0,.05); }
+  .seg{ background:var(--soft-field) !important; }
+  .seg button.on,.sortchip.on{ background:var(--panel) !important; color:var(--text) !important; border-color:transparent !important; box-shadow:0 1px 3px rgba(0,0,0,.12); }
+  .sortchip{ background:var(--soft-field) !important; border-color:transparent !important; }
+  .filterbar{ background:var(--soft-field) !important; border:none !important; }
+  .result .big{ font-family:"Playfair Display",Georgia,serif; font-style:italic; font-weight:600; }
+  .result .big.iva,.det-row .v.hi,.exp .price .iva,.card .totals .row .v.iva{ color:var(--fig-iva) !important; }
+  .result .rline{ border-color:var(--hair) !important; }
+
+  /* detalle de gasto: hairlines suaves */
+  .det-row{ border-bottom:1px solid var(--hair) !important; }
+  .det-img{ border:none !important; }
+  .det-add{ border:1.5px dashed var(--hair) !important; }
+  .det-row .v.big{ font-family:"Playfair Display",Georgia,serif; font-style:italic; font-weight:600; font-size:23px; }
+
+  /* tarjetas de gestión/selección suaves */
+  .manage-item,.sel-item{ background:var(--soft-field) !important; border-color:transparent !important; }
+
+  /* cabecera de total dentro de carpeta/etiqueta: suave + bronce + editorial */
+  .modal .grandtotal{ background:var(--panel) !important; border:none !important; box-shadow:0 1px 2px rgba(0,0,0,.05) !important; border-radius:18px !important; padding:16px 20px !important; }
+  .modal .grandtotal .gt-item .val{ font-family:"Playfair Display",Georgia,serif; font-style:italic; font-weight:600; }
+  .gt-item .val.iva{ color:var(--fig-iva) !important; }
 </style>
 </head>
 <body>
@@ -475,10 +551,14 @@ function ic(name,s){s=s||16;return `<svg width="${s}" height="${s}" viewBox="0 0
 function injectStaticIcons(){
   const mb=document.querySelector('.menubtn'); if(mb) mb.innerHTML=ic('menu',24);
   const dx=document.getElementById('drawer-x'); if(dx) dx.innerHTML=ic('close',20);
-  const map={'ditem-config':'settings','ditem-account':'user','ditem-trash':'trash','ditem-tags':'tag'};
-  for(const id in map){const el=document.getElementById(id); if(el&&!el.querySelector('svg')) el.insertAdjacentHTML('afterbegin',ic(map[id])+' ');}
+  const map={'ditem-config':{ic:'settings',c:'#0a84ff'},'ditem-account':{ic:'user',c:'#28a745'},'ditem-trash':{ic:'trash',c:'#e08600'},'ditem-tags':{ic:'tag',c:'#a020c0'}};
+  for(const id in map){const el=document.getElementById(id); if(el&&!el.querySelector('.dtile')){const m=map[id];
+    el.insertAdjacentHTML('afterbegin',`<span class="dtile" style="background:color-mix(in srgb, ${m.c} 16%, transparent);color:${m.c}">${ic(m.ic,19)}</span>`);
+    el.insertAdjacentHTML('beforeend',`<span class="dchev">${ic('chev',16)}</span>`);
+  }}
 }
 ICONS.close='<line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/>';
+ICONS.chev='<path d="M9 6l6 6-6 6"/>';
 
 /* (Las imágenes automáticas se han retirado. Cada gasto tiene sus propias imágenes adjuntas, visibles al abrir su detalle.) */
 async function uploadDataUrl(dataUrl){return uploadPhoto(dataUrl);}
@@ -743,8 +823,8 @@ function render(){
 const expDate = e => e.date || (e.createdAt ? new Date(e.createdAt).toISOString().slice(0,10) : '');
 
 function cardHTML(name,color,count,total,onclick){
-  return `<div class="card-acc" onclick="${onclick}">
-    <span class="bar" style="background:${color}"></span>
+  return `<div class="card-acc" onclick="${onclick}" style="background:color-mix(in srgb, ${color} 8%, var(--panel))">
+    <span class="card-dot" style="background:${color}"></span>
     <div class="nm">${escapeHtml(name)}</div>
     <div class="cnt">${count} ${count===1?'gasto':'gastos'}</div>
     <div class="num">${fmt(total)}</div>
