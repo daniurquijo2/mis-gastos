@@ -274,6 +274,22 @@
   .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:70;display:none;align-items:center;justify-content:center;padding:20px;cursor:zoom-out}
   .lightbox.show{display:flex}
   .lightbox img{max-width:100%;max-height:100%;object-fit:contain}
+  /* plazos / meses */
+  .period-bar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--panel);
+    border:1px solid var(--border);padding:12px 18px;margin-bottom:14px}
+  .period-bar .pname{font-weight:800;font-size:16px}
+  .period-bar .prange{color:var(--muted);font-size:13px}
+  .period-bar .grow{flex:1}
+  .period-bar.past{border-left:4px solid var(--hi)}
+  .pcurrent{background:var(--panel2);border:1px solid var(--border);padding:14px;margin-bottom:14px}
+  .pcurrent .nm{font-weight:800;font-size:16px}
+  .pcurrent .sub{color:var(--muted);font-size:13px;margin:3px 0 12px}
+  .plist{display:flex;flex-direction:column;gap:8px}
+  .pitem{display:flex;align-items:center;gap:12px;background:var(--panel2);border:1px solid var(--border);padding:12px 14px}
+  .pitem .pinfo{flex:1;min-width:0;cursor:pointer}
+  .pitem .pinfo .nm{font-weight:700}
+  .pitem .pinfo .sub{color:var(--muted);font-size:12px;margin-top:2px}
+  .pitem .acts{display:flex;gap:6px;flex-shrink:0}
   .swatch-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:4px}
   .swatch{width:42px;height:42px;border:1px solid var(--border);cursor:pointer;position:relative}
   .swatch.on{outline:2px solid var(--accent);outline-offset:2px}
@@ -440,6 +456,36 @@
   .modal .grandtotal{ background:var(--panel) !important; border:none !important; box-shadow:0 1px 2px rgba(0,0,0,.05) !important; border-radius:18px !important; padding:16px 20px !important; }
   .modal .grandtotal .gt-item .val{ font-family:"Playfair Display",Georgia,serif; font-style:italic; font-weight:600; }
   .gt-item .val.iva{ color:var(--fig-iva) !important; }
+
+  /* ===== Listado estilo extracto (Opción B) ===== */
+  .exp.exp-b{ display:flex; gap:13px; align-items:center; padding:16px 18px !important; }
+  .exp.exp-b .exp-dot{ width:9px; height:9px; border-radius:50% !important; flex-shrink:0; }
+  .exp.exp-b .exp-main{ flex:1; min-width:0; }
+  .exp.exp-b .exp-name{ font-weight:600; font-size:15.5px; color:var(--text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .exp.exp-b .exp-meta{ color:var(--muted); font-size:12.5px; margin-top:4px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .exp.exp-b .exp-clip{ display:inline-flex; vertical-align:-2px; opacity:.7; margin-left:3px; }
+  .exp.exp-b .exp-price{ text-align:right; flex-shrink:0; }
+  .exp.exp-b .exp-p{ font-family:"Playfair Display",Georgia,serif; font-style:italic; font-weight:600; font-size:22px; line-height:1; color:var(--text); }
+  .exp.exp-b .exp-iv{ color:var(--muted); font-size:11px; margin-top:4px; }
+  .exp.exp-b .exp-check{ flex-shrink:0; width:19px; height:19px; }
+  .exp.exp-b .exp-acts{ display:flex; gap:6px; flex-shrink:0; }
+  .exp.exp-b .exp-acts .iconbtn{ border:none !important; background:var(--soft-field) !important; color:var(--muted); width:34px; height:34px; }
+  .exp.exp-b .exp-acts .iconbtn.del:hover{ background:var(--danger) !important; color:#fff; }
+
+  /* ===== Filtros plegables + cabeceras de mes ===== */
+  .list-toolbar{ display:flex; align-items:center; gap:10px; margin-bottom:6px; }
+  .list-toolbar .search{ flex:1; margin:0; }
+  .fbtn{ display:flex; align-items:center; gap:8px; background:var(--soft-field); border:none; border-radius:14px; padding:11px 16px; font-weight:600; font-size:14px; color:var(--text); cursor:pointer; flex-shrink:0; }
+  .fbtn svg{ width:16px; height:16px; color:var(--text); }
+  .fbtn.on{ background:var(--accent) !important; color:var(--on-accent) !important; }
+  .fbtn.on svg{ color:var(--on-accent); }
+  .fbtn .fbadge{ background:var(--fig-iva); color:#fff; border-radius:999px; font-size:11px; padding:1px 7px; font-weight:700; }
+  .filters-open{ margin-top:12px; }
+  .month-head{ display:flex; align-items:baseline; justify-content:space-between; padding:16px 6px 8px; }
+  .month-head .mh-lbl{ font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); font-weight:700; }
+  .month-head .mh-sum{ font-family:"Playfair Display",Georgia,serif; font-style:italic; font-weight:600; font-size:16px; color:var(--text); }
+  .month-head .mh-sum small{ color:var(--fig-iva); font-size:12px; font-style:normal; }
+  #listado-rows .month-head:first-child{ padding-top:4px; }
 </style>
 </head>
 <body>
@@ -487,6 +533,7 @@
 <aside class="drawer" id="drawer">
   <div class="drawer-head"><span class="brandmark"><svg viewBox="0 0 100 100" width="24" height="24" fill="none"><g transform="translate(-32.4,-30) scale(1.6)" stroke="#fff" stroke-linecap="round"><line x1="33" y1="25" x2="33" y2="75" stroke-width="6"/><path d="M43,25 A25,25 0 0 1 43,75" stroke-width="10"/><line x1="47" y1="42" x2="67" y2="42" stroke-width="8"/><line x1="47" y1="58" x2="67" y2="58" stroke-width="8"/></g></svg></span> Mis Gastos
     <span class="x" onclick="closeDrawer()" id="drawer-x"></span></div>
+  <button class="ditem" id="ditem-periods" onclick="openPeriods()">Meses anteriores</button>
   <button class="ditem" id="ditem-config" onclick="openConfig()">Configuración</button>
   <button class="ditem" id="ditem-account" onclick="openAccount()">Ajustes de cuenta</button>
   <button class="ditem" id="ditem-trash" onclick="openTrash()">Papelera</button>
@@ -494,6 +541,7 @@
 </aside>
 
 <main>
+  <div class="period-bar" id="period-bar"></div>
   <div class="grandtotal" id="grandtotal">
     <div class="gt-label" id="gt-lbl">Total de todas las carpetas</div>
     <div class="gt-amount">
@@ -551,7 +599,7 @@ function ic(name,s){s=s||16;return `<svg width="${s}" height="${s}" viewBox="0 0
 function injectStaticIcons(){
   const mb=document.querySelector('.menubtn'); if(mb) mb.innerHTML=ic('menu',24);
   const dx=document.getElementById('drawer-x'); if(dx) dx.innerHTML=ic('close',20);
-  const map={'ditem-config':{ic:'settings',c:'#0a84ff'},'ditem-account':{ic:'user',c:'#28a745'},'ditem-trash':{ic:'trash',c:'#e08600'},'ditem-tags':{ic:'tag',c:'#a020c0'}};
+  const map={'ditem-periods':{ic:'calendar',c:'#5e5ce6'},'ditem-config':{ic:'settings',c:'#0a84ff'},'ditem-account':{ic:'user',c:'#28a745'},'ditem-trash':{ic:'trash',c:'#e08600'},'ditem-tags':{ic:'tag',c:'#a020c0'}};
   for(const id in map){const el=document.getElementById(id); if(el&&!el.querySelector('.dtile')){const m=map[id];
     el.insertAdjacentHTML('afterbegin',`<span class="dtile" style="background:color-mix(in srgb, ${m.c} 16%, transparent);color:${m.c}">${ic(m.ic,19)}</span>`);
     el.insertAdjacentHTML('beforeend',`<span class="dchev">${ic('chev',16)}</span>`);
@@ -559,6 +607,7 @@ function injectStaticIcons(){
 }
 ICONS.close='<line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/>';
 ICONS.chev='<path d="M9 6l6 6-6 6"/>';
+ICONS.filter='<line x1="4" y1="7" x2="20" y2="7"/><line x1="7" y1="12" x2="17" y2="12"/><line x1="10" y1="17" x2="14" y2="17"/>';
 
 /* (Las imágenes automáticas se han retirado. Cada gasto tiene sus propias imágenes adjuntas, visibles al abrir su detalle.) */
 async function uploadDataUrl(dataUrl){return uploadPhoto(dataUrl);}
@@ -644,11 +693,14 @@ function openTrash(){
   closeDrawer();
   const items=trashed.length?trashed.map(e=>{
     const f=folderById(e.folderId);
-    return `<div class="exp" style="cursor:default">
-      <div class="info"><div class="nm">${escapeHtml(e.name)}</div>
-        <div class="meta">${e.date?`${ic('calendar',13)} ${fmtDate(e.date)}`:''} ${f?`${ic('folder',13)} ${escapeHtml(f.name)}`:''} ${(e.photos&&e.photos.length)?`· ${e.photos.length} imagen(es)`:''}</div></div>
-      <div class="price"><div class="p">${fmt(parseFloat(e.price)||0)}</div></div>
-      <div class="acts">
+    const pm=[]; if(e.date)pm.push(fmtDate(e.date)); if(f)pm.push(escapeHtml(f.name));
+    return `<div class="exp exp-b" style="cursor:default">
+      <span class="exp-dot" style="background:${f?f.color:'var(--muted)'}"></span>
+      <div class="exp-main">
+        <div class="exp-name">${escapeHtml(e.name)}</div>
+        <div class="exp-meta">${pm.join(' · ')}${(e.photos&&e.photos.length)?` <span class="exp-clip">${ic('receipt',12)}</span>`:''}</div></div>
+      <div class="exp-price"><div class="exp-p">${fmt(parseFloat(e.price)||0)}</div></div>
+      <div class="exp-acts">
         <button class="iconbtn" title="Restaurar" onclick="restoreExpense('${e.id}')">${ic('restore')}</button>
         <button class="iconbtn del" title="Eliminar definitivamente" onclick="purgeExpense('${e.id}')">${ic('trash')}</button>
       </div></div>`;
@@ -676,6 +728,116 @@ async function emptyTrash(){
   if(!confirm(`¿Vaciar la papelera? Se eliminarán definitivamente ${trashed.length} gasto(s).`))return;
   try{for(const e of [...trashed]){for(const p of (e.photos||[]))await removePhoto(p.path);await del('expenses',e.id);}trashed=[];openTrash();toast('Papelera vaciada');}
   catch(ex){alert('No se pudo vaciar: '+(ex.message||ex));}
+}
+
+/* ---------- Plazos / "meses" ---------- */
+function renderPeriodBar(){
+  const bar=document.getElementById('period-bar'); if(!bar)return;
+  const viewing=viewPeriodId?periodById(viewPeriodId):null;
+  const og=ongoingPeriod();
+  const name=currentPeriodLabel();
+  let range;
+  if(viewing) range=`${fmtDate(viewing.start)} – ${viewing.end?fmtDate(viewing.end):'en curso'}`;
+  else if(og && og.start) range=`En curso · desde ${fmtDate(og.start)}`;
+  else range='Gastos del periodo actual';
+  bar.className='period-bar'+(viewing?' past':'');
+  bar.innerHTML=`<div><div class="pname">${escapeHtml(name)}</div><div class="prange">${range}</div></div>
+    <div class="grow"></div>
+    ${viewing
+      ? `<button class="btn ghost sm" onclick="goToCurrentPeriod()">← Volver al mes actual</button>`
+      : `<button class="btn ghost sm" onclick="openPeriods()">Gestionar meses</button>`}`;
+}
+function goToCurrentPeriod(){viewPeriodId=null;render();}
+function enterPeriod(id){viewPeriodId=id;closeModal();render();}
+function periodTotals(p){
+  const list=expenses.filter(e=>{const d=expDate(e);return d>=p.start && (!p.end || d<=p.end);});
+  return {n:list.length,total:sumOf(list)};
+}
+function openPeriods(){
+  closeDrawer();
+  const og=ongoingPeriod();
+  const closed=closedPeriods();
+  const currentBlock = og
+    ? (()=>{const t=periodTotals(og);return `<div class="pcurrent"><div class="nm">${escapeHtml(og.name)} <span class="hint" style="font-weight:600">· mes en curso</span></div>
+        <div class="sub">Desde ${fmtDate(og.start)} · ${t.n} gasto(s) · ${fmt(t.total)}</div>
+        <button class="btn ghost sm" onclick="goToCurrentPeriod();closeModal()">Ver mes actual</button>
+        <button class="btn ghost sm" onclick="openPeriodForm('edit','${og.id}')">Renombrar</button>
+        <button class="btn sm" onclick="finishPeriod('${og.id}')">Terminar este mes</button></div>`;})()
+    : `<div class="pcurrent"><div class="nm">Mes actual</div>
+        <div class="sub">No has iniciado un mes con nombre. Aquí están los gastos no archivados.</div>
+        <button class="btn ghost sm" onclick="goToCurrentPeriod();closeModal()">Ver mes actual</button>
+        <button class="btn sm" onclick="openPeriodForm('start')">Iniciar mes</button></div>`;
+  const items = closed.length ? closed.map(p=>{const t=periodTotals(p);
+    return `<div class="pitem">
+      <div class="pinfo" onclick="enterPeriod('${p.id}')">
+        <div class="nm">${escapeHtml(p.name)}</div>
+        <div class="sub">${fmtDate(p.start)} – ${fmtDate(p.end)} · ${t.n} gasto(s) · ${fmt(t.total)}</div></div>
+      <div class="acts">
+        <button class="iconbtn" title="Entrar" onclick="enterPeriod('${p.id}')">${ic('restore')}</button>
+        <button class="iconbtn" title="Editar" onclick="openPeriodForm('edit','${p.id}')">${ic('edit')}</button>
+        <button class="iconbtn del" title="Eliminar" onclick="deletePeriod('${p.id}')">${ic('trash')}</button>
+      </div></div>`;}).join('') : '<div class="hint">No hay meses anteriores todavía.</div>';
+  showModal(`<div class="modal wide"><h2>Meses<span class="x" onclick="closeModal()">×</span></h2>
+    <div class="body">
+      ${currentBlock}
+      <div class="det-sec">Meses anteriores</div>
+      <div class="plist" style="margin-top:10px">${items}</div>
+    </div>
+    <div class="foot"><button class="btn ghost" onclick="openPeriodForm('past')">+ Crear mes pasado</button>
+      <div class="right"><button class="btn" onclick="closeModal()">Cerrar</button></div></div></div>`);
+}
+function openPeriodForm(mode,id){
+  const p = id?periodById(id):null;
+  const needEnd = mode==='past' || (mode==='edit' && p && !!p.end);
+  const title = mode==='edit'?'Editar mes':(mode==='start'?'Iniciar mes':'Crear mes pasado');
+  showModal(`<div class="modal"><h2>${title}<span class="x" onclick="closeModal()">×</span></h2>
+    <div class="body">
+      <div class="field"><label>Nombre del mes</label>
+        <input type="text" id="p-name" value="${p?escapeHtml(p.name):''}" placeholder="p. ej. Junio, Vacaciones…"></div>
+      <div class="row2">
+        <div class="field"><label>Fecha de inicio</label>
+          <input type="date" id="p-start" value="${p?p.start:(mode==='start'?today():'')}"></div>
+        ${needEnd?`<div class="field"><label>Fecha de fin</label>
+          <input type="date" id="p-end" value="${p&&p.end?p.end:''}"></div>`:''}
+      </div>
+      ${mode==='start'?'<div class="hint">No lleva fecha de fin: es el mes en curso. Cuando termine, lo cierras desde «Meses».</div>':''}
+    </div>
+    <div class="foot"><span></span><div class="right">
+      <button class="btn ghost" onclick="openPeriods()">Cancelar</button>
+      <button class="btn" onclick="savePeriod('${mode}','${id||''}')">Guardar</button></div></div></div>`);
+}
+async function savePeriod(mode,id){
+  const name=document.getElementById('p-name').value.trim();
+  const start=document.getElementById('p-start').value;
+  const endEl=document.getElementById('p-end');
+  const end=endEl?endEl.value:'';
+  if(!name){alert('Ponle un nombre al mes.');return;}
+  if(!start){alert('Indica la fecha de inicio.');return;}
+  if(endEl){ if(!end){alert('Indica la fecha de fin.');return;} if(end<start){alert('La fecha de fin no puede ser anterior al inicio.');return;} }
+  if(mode==='start' && !id && ongoingPeriod()){alert('Ya tienes un mes en curso. Termínalo antes de iniciar otro.');return;}
+  try{
+    if(id){const p=periodById(id);Object.assign(p,{name,start,end:end||null});await put('periods',p);}
+    else{const p={id:uid(),name,start,end:(mode==='past'?end:null),createdAt:Date.now()};periods.push(p);await put('periods',p);}
+    openPeriods();render();
+  }catch(ex){alert('No se pudo guardar el mes: '+(ex.message||ex));}
+}
+async function finishPeriod(id){
+  const p=periodById(id); if(!p)return;
+  const end=prompt('¿Fecha de fin de este mes? (formato AAAA-MM-DD). Por defecto, hoy:', today());
+  if(end===null)return;
+  const ev=(end||'').trim()||today();
+  if(ev<p.start){alert('La fecha de fin no puede ser anterior al inicio.');return;}
+  try{p.end=ev;await put('periods',p);openPeriods();render();toast('Mes terminado');}
+  catch(ex){alert('No se pudo terminar el mes: '+(ex.message||ex));}
+}
+async function deletePeriod(id){
+  if(!confirm('¿Eliminar este mes? Los gastos NO se borran; volverán al mes actual.'))return;
+  try{await del('periods',id);periods=periods.filter(p=>p.id!==id);if(viewPeriodId===id)viewPeriodId=null;openPeriods();render();}
+  catch(ex){alert('No se pudo eliminar: '+(ex.message||ex));}
+}
+function defaultNewDate(){
+  if(viewPeriodId){const p=periodById(viewPeriodId);if(p&&p.end){const t=today();return (t>=p.start&&t<=p.end)?t:p.end;}}
+  return today();
 }
 
 /* ---------- AUTH ---------- */
@@ -732,16 +894,19 @@ function traducirError(m){
 async function logout(){await sb.auth.signOut();location.reload();}
 
 /* ---------- State ---------- */
-let expenses=[], folders=[], tags=[], trashed=[];
+let expenses=[], folders=[], tags=[], trashed=[], periods=[];
+let viewPeriodId=null; // null = "mes actual" (lo aún no cerrado)
 async function loadAll(){
-  const [f,t,e]=await Promise.all([
+  const [f,t,e,pr]=await Promise.all([
     sb.from('folders').select('*').order('created_at'),
     sb.from('tags').select('*').order('created_at'),
-    sb.from('expenses').select('*')
+    sb.from('expenses').select('*'),
+    sb.from('periods').select('*')
   ]);
-  if(f.error) throw f.error; if(t.error) throw t.error; if(e.error) throw e.error;
+  if(f.error) throw f.error; if(t.error) throw t.error; if(e.error) throw e.error; if(pr.error) throw pr.error;
   folders=(f.data||[]).map(r=>({id:r.id,name:r.name,color:r.color}));
   tags   =(t.data||[]).map(r=>({id:r.id,name:r.name,color:r.color}));
+  periods=(pr.data||[]).map(r=>({id:r.id,name:r.name,start:r.start_date,end:r.end_date||null,createdAt:r.created_at?Number(r.created_at):0}));
   const all=(e.data||[]).map(r=>{
     let photos=(r.photos||[]).filter(Boolean).map(p=>({path:p,url:pub(p)}));
     if(!photos.length && r.photo_path) photos=[{path:r.photo_path,url:pub(r.photo_path)}];
@@ -771,6 +936,9 @@ async function put(store,val){
       photos:(val.photos||[]).map(p=>p.path),created_at:val.createdAt||Date.now()};
     const {error}=await sb.from('expenses').upsert(row);
     if(error)throw error;
+  }else if(store==='periods'){
+    const {error}=await sb.from('periods').upsert({id:val.id,name:val.name,start_date:val.start,end_date:val.end||null,created_at:val.createdAt||Date.now()});
+    if(error)throw error;
   }
 }
 async function del(store,id){
@@ -789,8 +957,20 @@ async function removePhoto(path){if(path){try{await sb.storage.from('fotos').rem
 /* ---------- Helpers ---------- */
 const folderById = id => folders.find(f=>f.id===id);
 const tagById = id => tags.find(t=>t.id===id);
-function expensesInFolder(fid){return expenses.filter(e=>e.folderId===fid);}
-function expensesWithTag(tid){return expenses.filter(e=>(e.tagIds||[]).includes(tid));}
+const periodById = id => periods.find(p=>p.id===id);
+function ongoingPeriod(){return periods.find(p=>!p.end)||null;}
+function closedPeriods(){return periods.filter(p=>p.end).sort((a,b)=>(b.start||'').localeCompare(a.start||''));}
+function inAnyClosedPeriod(e){const d=expDate(e);return periods.some(p=>p.end && d>=p.start && d<=p.end);}
+function inViewPeriod(e){
+  if(viewPeriodId){const p=periodById(viewPeriodId);if(!p)return true;const d=expDate(e);return d>=p.start && (!p.end || d<=p.end);}
+  return !inAnyClosedPeriod(e);
+}
+function currentPeriodLabel(){
+  if(viewPeriodId){const p=periodById(viewPeriodId);return p?p.name:'Mes actual';}
+  const og=ongoingPeriod();return og?og.name:'Mes actual';
+}
+function expensesInFolder(fid){return expenses.filter(e=>e.folderId===fid && inViewPeriod(e));}
+function expensesWithTag(tid){return expenses.filter(e=>(e.tagIds||[]).includes(tid) && inViewPeriod(e));}
 function sumOf(list){return list.reduce((s,e)=>s+(parseFloat(e.price)||0),0);}
 
 /* ---------- Render ---------- */
@@ -800,6 +980,7 @@ function setView(v){
   render();
 }
 function render(){
+  renderPeriodBar();
   const grid=document.getElementById('grid');
   if(view==='informes'){
     document.getElementById('grandtotal').style.display='none';
@@ -808,10 +989,11 @@ function render(){
     return;
   }
   document.getElementById('grandtotal').style.display='flex';
-  const total=sumOf(expenses);
+  const ve=expenses.filter(inViewPeriod);
+  const total=sumOf(ve);
   document.getElementById('gt-total').textContent=fmt(total);
   document.getElementById('gt-iva').textContent=fmt(total*IVA);
-  document.getElementById('gt-count').textContent=expenses.length;
+  document.getElementById('gt-count').textContent=ve.length;
   document.getElementById('gt-lbl').textContent = view==='carpetas'
     ? 'Total de todas las carpetas' : view==='etiquetas' ? 'Total de todas las etiquetas'
     : 'Total de todos los gastos';
@@ -921,22 +1103,38 @@ function setFilter(ctx,which,val){filters[ctx][which]=val;rerenderSort(ctx);}
 function clearDateFilter(ctx){filters[ctx].from='';filters[ctx].to='';rerenderSort(ctx);}
 
 /* ---------- Listado ---------- */
-let listSel=new Set(), listSearch='';
-function getListadoExpenses(){const s=sortState.list;return sortExpenses(applyFilters(filterBySearch(expenses,listSearch),filters.list),s.key,s.dir);}
-function listadoRowsHTML(list){return list.length?list.map(e=>expRowHTML(e,true)).join('')
-  :`<div class="empty-state">${listSearch?'Ningún gasto coincide con la búsqueda.':'No hay gastos todavía.'}</div>`;}
+let listSel=new Set(), listSearch='', listFiltersOpen=false;
+function isDateSort(ctx){const k=sortState[ctx].key;return k==='fecha-gasto'||k==='fecha-add';}
+function countListFilters(){const fl=filters.list;return (fl.from?1:0)+(fl.to?1:0)+(fl.tipo&&fl.tipo!=='todos'?1:0);}
+function toggleListFilters(){listFiltersOpen=!listFiltersOpen;render();}
+const MESES_ES=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+function monthLabelFrom(d){const p=String(d).split('-');return (MESES_ES[parseInt(p[1],10)-1]||'')+' '+p[0];}
+function expListHTML(list,opts){
+  opts=opts||{};
+  const sel=!!opts.selectable;
+  if(!list.length) return `<div class="exp-list">${opts.empty||'<div class="empty-state">No hay gastos.</div>'}</div>`;
+  if(!opts.groupByMonth) return `<div class="exp-list">${list.map(e=>expRowHTML(e,sel)).join('')}</div>`;
+  const groups=[],idx={};
+  list.forEach(e=>{const d=expDate(e);const key=d?d.slice(0,7):'----';if(idx[key]===undefined){idx[key]=groups.length;groups.push({date:d,items:[]});}groups[idx[key]].items.push(e);});
+  return groups.map(g=>{const sub=g.items.reduce((s,e)=>s+(parseFloat(e.price)||0),0);const lbl=g.date?monthLabelFrom(g.date):'Sin fecha';
+    return `<div class="month-head"><span class="mh-lbl">${lbl}</span><span class="mh-sum">${fmt(sub)} <small>· 19% ${fmt(sub*IVA)}</small></span></div><div class="exp-list">${g.items.map(e=>expRowHTML(e,sel)).join('')}</div>`;
+  }).join('');
+}
+function getListadoExpenses(){const s=sortState.list;return sortExpenses(applyFilters(filterBySearch(expenses.filter(inViewPeriod),listSearch),filters.list),s.key,s.dir);}
+function listadoRowsHTML(list){return expListHTML(list,{selectable:true,groupByMonth:isDateSort('list'),
+  empty:`<div class="empty-state">${listSearch?'Ningún gasto coincide con la búsqueda.':'No hay gastos todavía.'}</div>`});}
 function listFiltered(){const fl=filters.list;return !!(listSearch||fl.from||fl.to||fl.tipo!=='todos');}
 function listSelInfoText(n){return `${listSel.size} seleccionado(s)${listFiltered()?` · ${n} mostrado(s)`:''}`;}
 function renderListado(grid){
   const list=getListadoExpenses();
   grid.innerHTML=`
     <div class="panel" style="margin-bottom:16px">
-      ${buildSortBar('list')}
-      ${buildFilterBar('list')}
-      <div class="searchrow">
+      <div class="list-toolbar">
         <input type="text" class="search" id="list-search" placeholder="Buscar por nombre, carpeta o etiqueta…" value="${escapeHtml(listSearch)}" oninput="applyListSearch(this.value)">
-        ${listSearch?`<button class="btn ghost sm" onclick="clearListSearch()">✕ Limpiar</button>`:''}
+        ${listSearch?`<button class="btn ghost sm" onclick="clearListSearch()">✕</button>`:''}
+        <button class="fbtn ${listFiltersOpen?'on':''}" onclick="toggleListFilters()">${ic('filter',16)} Filtros${countListFilters()?`<span class="fbadge">${countListFilters()}</span>`:''}</button>
       </div>
+      ${listFiltersOpen?`<div class="filters-open">${buildSortBar('list')}${buildFilterBar('list')}</div>`:''}
       <div class="list-tools">
         <span class="hint" id="list-selinfo">${listSelInfoText(list.length)}</span>
         <button class="btn ghost sm" id="list-selall-btn" onclick="listSelectAll()">Seleccionar ${listFiltered()?'resultados':'todo'}</button>
@@ -944,7 +1142,7 @@ function renderListado(grid){
         <button class="btn sm" id="list-report-btn" onclick="listMakeReport()" ${listSel.size?'':'disabled'}>Crear informe con seleccionados</button>
       </div>
     </div>
-    <div class="exp-list" id="listado-rows">${listadoRowsHTML(list)}</div>`;
+    <div id="listado-rows">${listadoRowsHTML(list)}</div>`;
 }
 function applyListSearch(val){
   listSearch=val;
@@ -971,6 +1169,7 @@ function listMakeReport(){
 /* ---------- Reports ---------- */
 let reportState={mode:'carpetas',from:'',to:'',sel:new Set(),tagMatch:'any',search:'',tipo:'todos'};
 function inDateRange(e){
+  if(!inViewPeriod(e)) return false;
   const d=expDate(e);
   if(reportState.from && d < reportState.from) return false;
   if(reportState.to && d > reportState.to) return false;
@@ -1142,24 +1341,29 @@ function openFolder(fid){
       </div>
       ${buildSortBar('folder')}
       ${buildFilterBar('folder')}
-      <div class="exp-list">${list.length?list.map(e=>expRowHTML(e)).join(''):'<div class="empty-state">No hay gastos en esta carpeta.</div>'}</div>
+      ${expListHTML(list,{groupByMonth:isDateSort('folder'),empty:'<div class="empty-state">No hay gastos en esta carpeta.</div>'})}
     </div></div>`);
 }
 function expRowHTML(e,selectable){
   const f=folderById(e.folderId);
-  const tagsHtml=(e.tagIds||[]).map(id=>{const t=tagById(id);return t?`<span class="t" style="background:${t.color}">${escapeHtml(t.name)}</span>`:'';}).join('');
   const price=parseFloat(e.price)||0;
+  const parts=[];
+  if(e.date) parts.push(fmtDate(e.date));
+  if(f) parts.push(escapeHtml(f.name));
+  if(e.necesidad==='imprescindible') parts.push('Imprescindible');
+  (e.tagIds||[]).forEach(id=>{const t=tagById(id); if(t) parts.push(escapeHtml(t.name));});
+  const meta=parts.join(' · ');
+  const clip=(e.photos&&e.photos.length)?`<span class="exp-clip">${ic('receipt',12)}</span>`:'';
   const check=selectable?`<input type="checkbox" class="exp-check" ${listSel.has(e.id)?'checked':''} onclick="event.stopPropagation();toggleListSel('${e.id}')">`:'';
-  const nImg=(e.photos&&e.photos.length)?` <span class="needbadge" style="background:var(--muted)">${e.photos.length} ${ic('receipt',11)}</span>`:'';
-  return `<div class="exp" onclick="openExpenseDetail('${e.id}')" title="Abrir gasto">
-    ${check}
-    <div class="info"><div class="nm">${escapeHtml(e.name)}</div>
-      <div class="meta">${e.date?`${ic('calendar',13)} ${fmtDate(e.date)}`:''} ${f?`${ic('folder',13)} ${escapeHtml(f.name)}`:''} ${e.necesidad==='imprescindible'?'<span class="needbadge">Imprescindible</span>':''} ${tagsHtml}${nImg}</div></div>
-    <div class="price"><div class="p">${fmt(price)}</div><div class="iva">+19%: ${fmt(price*IVA)}</div></div>
-    <div class="acts">
-      <button class="iconbtn" title="Editar" onclick="event.stopPropagation();openExpense('${e.id}')">${ic('edit')}</button>
-      <button class="iconbtn del" title="Eliminar" onclick="event.stopPropagation();deleteExpense('${e.id}')">${ic('trash')}</button>
-    </div></div>`;
+  const dot=selectable?'':`<span class="exp-dot" style="background:${f?f.color:'var(--muted)'}"></span>`;
+  return `<div class="exp exp-b" onclick="openExpenseDetail('${e.id}')" title="Abrir gasto">
+    ${check}${dot}
+    <div class="exp-main">
+      <div class="exp-name">${escapeHtml(e.name)}</div>
+      <div class="exp-meta">${meta}${clip}</div>
+    </div>
+    <div class="exp-price"><div class="exp-p">${fmt(price)}</div><div class="exp-iv">19% · ${fmt(price*IVA)}</div></div>
+  </div>`;
 }
 
 /* ---------- Detalle flotante del gasto (info + imágenes) ---------- */
@@ -1229,13 +1433,13 @@ function openTagView(tid){
       </div>
       ${buildSortBar('tag')}
       ${buildFilterBar('tag')}
-      <div class="exp-list">${list.length?list.map(e=>expRowHTML(e)).join(''):'<div class="empty-state">Ningún gasto con esta etiqueta.</div>'}</div>
+      ${expListHTML(list,{groupByMonth:isDateSort('tag'),empty:'<div class="empty-state">Ningún gasto con esta etiqueta.</div>'})}
     </div></div>`);
 }
 
 /* ---------- Expense create/edit ---------- */
 function openExpense(id,presetFolder){
-  const e = id ? expenses.find(x=>x.id===id) : {name:'',price:'',date:'',folderId:presetFolder||(folders[0]&&folders[0].id)||'',tagIds:[],necesidad:'prescindible',photos:[]};
+  const e = id ? expenses.find(x=>x.id===id) : {name:'',price:'',date:defaultNewDate(),folderId:presetFolder||(folders[0]&&folders[0].id)||'',tagIds:[],necesidad:'prescindible',photos:[]};
   if(!folders.length){
     showModal(`<div class="modal"><h2>Crea una carpeta primero<span class="x" onclick="closeModal()">×</span></h2>
       <div class="body"><p>Para registrar un gasto necesitas al menos una carpeta donde clasificarlo.</p></div>
